@@ -94,6 +94,70 @@ namespace Task1
             return $"Circle(Center: {Center}, Radius: {Radius})";
         }
     }
+
+    public class Aggregation
+    {
+        private List<object> figures;
+
+        public Aggregation()
+        {
+            figures = new List<object>();
+        }
+
+        public void AddFigure(object figure)
+        {
+            figures.Add(figure);
+        }
+
+        public void Move(double newX, double newY)
+        {
+            foreach (var figure in figures)
+            {
+                switch (figure)
+                {
+                    case Point p:
+                        p.Move(newX, newY);
+                        break;
+                    case Line l:
+                        l.Move(newX, newY);
+                        break;
+                    case Circle c:
+                        c.Move(newX, newY);
+                        break;
+                }
+            }
+        }
+
+        public void Rotate(double angle)
+        {
+            foreach (var figure in figures)
+            {
+                switch (figure)
+                {
+                    case Point p:
+                        p.Rotate(angle);
+                        break;
+                    case Line l:
+                        l.Rotate(angle);
+                        break;
+                    case Circle c:
+                        c.Rotate(angle);
+                        break;
+                }
+            }
+        }
+
+        public override string ToString()
+        {
+            string result = "Aggregation:\n";
+            foreach (var figure in figures)
+            {
+                result += figure.ToString() + "\n";
+            }
+            return result;
+        }
+    }
+
     public class Program
     {
         static void Main(string[] args)
@@ -135,6 +199,26 @@ namespace Task1
             Console.WriteLine($"New Line2: {line2}");
             Console.WriteLine($"New Circle1: {circle1}");
             Console.WriteLine($"New Circle2: {circle2}");
+
+            Aggregation agg = new Aggregation();
+            agg.AddFigure(point1);
+            agg.AddFigure(point2);
+            agg.AddFigure(line1);
+            agg.AddFigure(circle1);
+
+         
+            Console.WriteLine("\nAggregation Original Positions:");
+            Console.WriteLine(agg);
+
+            
+            agg.Move(2, 3);
+            Console.WriteLine("After Move (2, 3):");
+            Console.WriteLine(agg);
+
+            
+            agg.Rotate(90);
+            Console.WriteLine("After Rotate 90 degrees around (0, 0):");
+            Console.WriteLine(agg);
 
             Console.WriteLine("Press any key to exit");
             Console.ReadKey();
