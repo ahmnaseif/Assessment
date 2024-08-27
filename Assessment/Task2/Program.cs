@@ -10,23 +10,28 @@ namespace Task2
     {
         public bool CheckPalindrome(string inputString, string trashSymbolsString)
         {
-            string filteredString = "";
+            int left = 0;
+            int right = inputString.Length - 1;
 
-            foreach (char ch in inputString)
+            while (left < right)
             {
-                if (!trashSymbolsString.Contains(ch))
+                while (trashSymbolsString.Contains(inputString[left]) || trashSymbolsString.Contains(inputString[right]))
                 {
-                    filteredString += char.ToLower(ch);
-                }
-            }
+                    if(trashSymbolsString.Contains(inputString[left]))
+                        left++;
 
-            int length = filteredString.Length;
-            for (int i = 0; i < length / 2; i++)
-            {
-                if (filteredString[i] != filteredString[length - 1 - i])
+                    if(left < right  && trashSymbolsString.Contains(inputString[right]))
+                        right--;    
+
+                }
+
+                if (left < right  && char.ToLower(inputString[left]) != char.ToLower(inputString[right]))
                 {
                     return false;
                 }
+
+                left++;
+                right--;
             }
 
             return true;
