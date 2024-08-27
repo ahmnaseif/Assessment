@@ -15,17 +15,19 @@ namespace Task2
 
             while (left < right)
             {
-                while (left < right && trashSymbolsString.Contains(inputString[left]))
+                if (trashSymbolsString.Contains(inputString[left]))
                 {
                     left++;
+                    continue;
                 }
 
-                while (left < right && trashSymbolsString.Contains(inputString[right]))
+                if (trashSymbolsString.Contains(inputString[right]))
                 {
                     right--;
+                    continue;
                 }
 
-                if (left < right  && char.ToLower(inputString[left]) != char.ToLower(inputString[right]))
+                if (char.ToLower(inputString[left]) != char.ToLower(inputString[right]))
                 {
                     return false;
                 }
